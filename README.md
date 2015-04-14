@@ -1,20 +1,29 @@
 git4idea.mpsbl.stubs
 ====================
 
-Project containing several MPS projects describing how to create IDEA plugin exposing third-party IDEA plugin as MPS BaseLanguage stub models
+Project containing an MPS project with a set of solutions/plugins that expose and use the git related libraries within Base Language.
 
-- open git4idea.mpsbl.stubs project
-  - rebuild it
-  - run git4idea.mpsbl.stubs build script
-  - build results will be saved in ./build/artifacts/git4idea.mpsbl.stubs/
-- close project
-- install ./build/artifacts/git4idea.mpsbl.stubs/git4idea.mpsbl.stubs.zip plugin into the MPS platrofm
-- restart MPS
-- open git4idea.mpsbl.stubs.usage project
-  - rebuild it
-  - declared action sould be available in the popup menu on model in MPS Logical View
-  - run git4idea.mpsbl.stubs.usage build script
-  - build results will be saved in ./build/artifacts/git4idea.mpsbl.stubs.usage/
-- close project 
-- install ./build/artifacts/git4idea.mpsbl.stubs.usage/git4idea.mpsbl.stubs.usage.zip plugin into the MPS platrofm
-- now both plugins are in the system and you can use sample action from the git4idea.mpsbl.stubs.usage project on any model available in MPS
+## Usage
+
+- chdir into the root folder of the repository
+- run ant clean assemble
+- run ant check -f tests.xml
+- observe the following issue:
+
+    [junit] <br>Plugin "MPS BaseLanguage subs plugin for git4idea IntelliJ IDEA plugin" was not loaded: required plugin "Git4Idea" not installed.<br><br><a href="disable">Disable MPS BaseLanguage subs plugin for git4idea IntelliJ IDEA plugin</a><br><a href="edit">Open plugin manager</a>
+
+- wonder how the following addition in the generated build script (tests.xml) could be achieved:
+
+    <junit showoutput="true" fork="true" haltonfailure="false">
+      <!-- ... -->      
+      <classpath>
+        <!-- ... -->      
+        
+        <fileset dir="${artifacts.mps}/plugins/git4idea">
+          <include name="**/lib/*.jar" />
+        </fileset>
+        
+        <!-- ... -->      
+      </classpath>      
+      <!-- ... -->      
+    </junit>

@@ -4,3 +4,8 @@ classes
 classes_gen
 *.class
 workspace.xml
+atlassian-ide-plugin.xml
+source_gen
+source_gen.caches
+test_gen
+test_gen.caches
