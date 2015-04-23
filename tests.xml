@@ -3,10 +3,11 @@
   <property name="build.dir" location="build" />
   <property name="build.tmp" location="${build.dir}/tmp/git4ideaTests" />
   <property name="build.layout" location="${build.dir}/artifacts/git4ideaTests" />
-  <property name="mps_home" location="${basedir}/../../../../../../Applications/MPS 3.1.app/Contents" />
-  <property name="git4idea_home" location="${mps_home}/plugins/git4idea" />
+  <property name="mps_home" location="${basedir}/../../../MPS_executables/3.1.5/MPS 3.1.app/Contents" />
+  <property name="plugins_home" location="${mps_home}/plugins" />
   <property name="artifacts.mps" location="${mps_home}" />
   <property name="artifacts.git4idea" location="${build.dir}/artifacts/git4idea" />
+  <property name="artifacts.IDEA_git4idea" location="${plugins_home}" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property name="mps.build.number" value="${import.mps.mps.build.number}" />
   <property name="mps.date" value="${import.mps.mps.date}" />
@@ -143,8 +144,8 @@
       <library file="${artifacts.mps}/plugins/mps-testing/languages/baseLanguage/jetbrains.mps.baseLanguage.unitTest.jar" />
       <library file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.jar" />
       <library file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.runtime.jar" />
-      <library file="${build.tmp}/deps/git4idea/git4idea.zip/git4ide.mps.actions/languages/git4idea.mpsbl.stubs.jar" />
       <library file="${build.tmp}/deps/git4idea/git4idea.zip/git4ide.mps.actions/languages/git4idea.mpsbl.stubs.usage.actions.jar" />
+      <library file="${build.tmp}/deps/git4idea/git4idea.zip/git4idea.mpsbl.stubs/languages/git4idea.mpsbl.stubs.jar" />
       <chunk>
         <module file="${basedir}/solutions/git4idea.tests/git4idea.tests.msd" />
       </chunk>
@@ -152,7 +153,7 @@
         <arg value="-Xmx512m" />
       </jvmargs>
       <macro name="mps_home" path="${mps_home}" />
-      <macro name="git4idea_home" path="${git4idea_home}" />
+      <macro name="plugins_home" path="${plugins_home}" />
     </generate>
   </target>
   
@@ -281,11 +282,12 @@
       <pathelement location="${artifacts.mps}/plugins/mps-testing/languages/baseLanguage/jetbrains.mps.baseLanguage.unitTest.jar" />
       <pathelement location="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.jar" />
       <pathelement location="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.runtime.jar" />
-      <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/git4ide.mps.actions/languages/git4idea.mpsbl.stubs.jar" />
       <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/git4ide.mps.actions/languages/git4idea.mpsbl.stubs.usage.actions.jar" />
+      <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/git4idea.mpsbl.stubs/languages/git4idea.mpsbl.stubs.jar" />
     </path>
     <pathconvert pathsep="${path.separator}" property="mps.libraries.path.string" refid="mps.libraries.path" />
     <path id="mps.plugins.path">
+      <pathelement location="${artifacts.IDEA_git4idea}/git4idea" />
       <pathelement location="${artifacts.mps}/plugins/mps-build" />
       <pathelement location="${artifacts.mps}/plugins/mps-core/META-INF/plugin.xml/../.." />
       <pathelement location="${artifacts.mps}/plugins/mps-execution-api" />
@@ -306,6 +308,9 @@
       <classpath>
         <fileset dir="${artifacts.mps}/lib">
           <include name="**/*.jar" />
+        </fileset>
+        <fileset dir="${artifacts.IDEA_git4idea}/git4idea">
+          <include name="**/lib/*.jar" />
         </fileset>
         <fileset dir="${artifacts.mps}/plugins/mps-build">
           <include name="**/lib/*.jar" />

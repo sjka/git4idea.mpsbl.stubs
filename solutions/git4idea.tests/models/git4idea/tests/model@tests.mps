@@ -9,7 +9,7 @@
   <import index="tp5g" modelUID="r:00000000-0000-4000-0000-011c89590388(jetbrains.mps.lang.test.structure)" version="40" implicit="yes" />
   <import index="tpck" modelUID="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" version="0" implicit="yes" />
   <root type="tp5g.TestInfo" typeId="tp5g.5097124989038916362" id="4540282520836241811" nodeInfo="ng">
-    <property name="projectPath" nameId="tp5g.5097124989038916363" value="/Users/simon/git/github/ashatalin/git4idea.mpsbl.stubs" />
+    <property name="projectPath" nameId="tp5g.5097124989038916363" value="/Users/shatalin/Desktop/sources/support/git4idea.mpsbl.stubs" />
     <property name="uiTest" nameId="tp5g.4484885613884808424" value="true" />
   </root>
   <root type="tp5g.EditorTestCase" typeId="tp5g.1229187653856" id="4540282520836242686" nodeInfo="ng">

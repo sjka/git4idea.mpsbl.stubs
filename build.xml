@@ -3,9 +3,11 @@
   <property name="build.dir" location="build" />
   <property name="build.tmp" location="${build.dir}/tmp/git4idea" />
   <property name="build.layout" location="${build.dir}/artifacts/git4idea" />
-  <property name="mps_home" location="${basedir}/../../../../../../Applications/MPS 3.1.app/Contents" />
-  <property name="git4idea_home" location="${mps_home}/plugins/git4idea" />
+  <property name="mps_home" location="${basedir}/../../../MPS_executables/3.1.5/MPS 3.1.app/Contents" />
+  <property name="plugins_home" location="${mps_home}/plugins" />
+  <property name="git4idea_home" location="${plugins_home}/git4idea" />
   <property name="artifacts.mps" location="${mps_home}" />
+  <property name="artifacts.IDEA_git4idea" location="${plugins_home}" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property name="mps.build.number" value="${import.mps.mps.build.number}" />
   <property name="mps.date" value="${import.mps.mps.date}" />
@@ -21,26 +23,7 @@
   </path>
   
   <target name="assemble" depends="classes, declare-mps-tasks">
-    <mkdir dir="${build.layout}/git4idea_jars" />
-    <copy todir="${build.layout}/git4idea_jars">
-      <fileset file="${git4idea_home}/lib/git4idea-rt.jar" />
-    </copy>
-    <copy todir="${build.layout}/git4idea_jars">
-      <fileset file="${git4idea_home}/lib/git4idea.jar" />
-    </copy>
-    <copy todir="${build.layout}/git4idea_jars">
-      <fileset file="${git4idea_home}/lib/ini4j-0.5.2-patched.jar" />
-    </copy>
-    <copy todir="${build.layout}/git4idea_jars">
-      <fileset file="${git4idea_home}/lib/org.eclipse.jgit-2.1.0.201209190230-r.jar" />
-    </copy>
-    <copy todir="${build.layout}/git4idea_jars">
-      <fileset file="${git4idea_home}/lib/resources_en.jar" />
-    </copy>
-    <copy todir="${build.layout}/git4idea_jars">
-      <fileset file="${git4idea_home}/lib/trilead-ssh2.jar" />
-    </copy>
-    <mkdir dir="${build.layout}/tests" />
+    <mkdir dir="${build.layout}" />
     <mkdir dir="${build.tmp}/default/git4idea.zip" />
     <mkdir dir="${build.tmp}/default/git4idea.zip/git4ide.mps.actions" />
     <mkdir dir="${build.tmp}/default/git4idea.zip/git4ide.mps.actions/META-INF" />
@@ -52,6 +35,7 @@
         <depends>jetbrains.mps.core</depends>
         <depends>jetbrains.mps.build</depends>
         <depends>jetbrains.mps.execution.api</depends>
+        <depends>git4idea.mpsbl.stubs</depends>
         
         <extensions defaultExtensionNs="com.intellij">
           <mps.LanguageLibrary dir="/languages" />
@@ -93,22 +77,39 @@
       <zipfileset file="${basedir}/git4idea.mpsbl.stubs.usage/solutions/git4idea.mpsbl.stubs.usage.actions/git4idea.mpsbl.stubs.usage.actions.msd" prefix="module" />
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/git4idea.mpsbl.stubs.usage-solutions-git4idea.mpsbl.stubs.usage.actions-models" prefix="module/models" />
     </jar>
-    <mkdir dir="${build.tmp}/default/git4idea.zip/git4ide.mps.actions/languages" />
+    <mkdir dir="${build.tmp}/default/git4idea.zip/git4idea.mpsbl.stubs" />
+    <mkdir dir="${build.tmp}/default/git4idea.zip/git4idea.mpsbl.stubs/META-INF" />
+    <echoxml file="${build.tmp}/default/git4idea.zip/git4idea.mpsbl.stubs/META-INF/plugin.xml">
+      <idea-plugin version="2" xmlns:xi="http://www.w3.org/2001/XInclude">
+        <id>git4idea.mpsbl.stubs</id>
+        <name>git4idea.mpsbl.stubs</name>
+        <description>MPS BaseLanguage subs plugin for git4idea IntelliJ IDEA plugin</description>
+        <version>1.0</version>
+        <depends>jetbrains.mps.core</depends>
+        <depends>jetbrains.mps.build</depends>
+        <depends>Git4Idea</depends>
+        
+        <extensions defaultExtensionNs="com.intellij">
+          <mps.LanguageLibrary dir="/languages" />
+        </extensions>
+      </idea-plugin>
+    </echoxml>
+    <mkdir dir="${build.tmp}/default/git4idea.zip/git4idea.mpsbl.stubs/languages" />
     <mkdir dir="${build.tmp}/default/git4idea.mpsbl.stubs.jar" />
     <mkdir dir="${build.tmp}/default/git4idea.mpsbl.stubs.jar/META-INF" />
     <echoxml file="${build.tmp}/default/git4idea.mpsbl.stubs.jar/META-INF/module.xml">
       <module namespace="git4idea.mpsbl.stubs" type="solution" uuid="67007309-771c-4646-8d7f-68a04927a7a4">
         <dependencies />
-        <library jar="../../../git4idea_jars/git4idea-rt.jar" />
-        <library jar="../../../git4idea_jars/git4idea.jar" />
-        <library jar="../../../git4idea_jars/ini4j-0.5.2-patched.jar" />
-        <library jar="../../../git4idea_jars/org.eclipse.jgit-2.1.0.201209190230-r.jar" />
-        <library jar="../../../git4idea_jars/resources_en.jar" />
-        <library jar="../../../git4idea_jars/trilead-ssh2.jar" />
+        <library jar="/plugins/git4idea/lib/git4idea-rt.jar" />
+        <library jar="/plugins/git4idea/lib/git4idea.jar" />
+        <library jar="/plugins/git4idea/lib/ini4j-0.5.2-patched.jar" />
+        <library jar="/plugins/git4idea/lib/org.eclipse.jgit-2.1.0.201209190230-r.jar" />
+        <library jar="/plugins/git4idea/lib/resources_en.jar" />
+        <library jar="/plugins/git4idea/lib/trilead-ssh2.jar" />
         <sources jar="git4idea.mpsbl.stubs-src.jar" descriptor="git4idea.mpsbl.stubs.msd" />
       </module>
     </echoxml>
-    <jar destfile="${build.tmp}/default/git4idea.zip/git4ide.mps.actions/languages/git4idea.mpsbl.stubs.jar">
+    <jar destfile="${build.tmp}/default/git4idea.zip/git4idea.mpsbl.stubs/languages/git4idea.mpsbl.stubs.jar">
       <fileset dir="${build.tmp}/java/out/git4idea.mpsbl.stubs" />
       <fileset dir="${basedir}/git4idea.mpsbl.stubs/solutions/git4idea.mpsbl.stubs" includes="icons/**, resources/**" />
       <fileset dir="${build.tmp}/default/git4idea.mpsbl.stubs.jar" />
@@ -116,7 +117,7 @@
     <copyModels todir="${build.tmp}/customProcessors/copyModels/git4idea.mpsbl.stubs-solutions-git4idea.mpsbl.stubs-models">
       <fileset dir="${basedir}/git4idea.mpsbl.stubs/solutions/git4idea.mpsbl.stubs/models" includes="**/*.mps, **/*.metadata, **/*.history, **/*.mpsr, **/.model" />
     </copyModels>
-    <jar destfile="${build.tmp}/default/git4idea.zip/git4ide.mps.actions/languages/git4idea.mpsbl.stubs-src.jar">
+    <jar destfile="${build.tmp}/default/git4idea.zip/git4idea.mpsbl.stubs/languages/git4idea.mpsbl.stubs-src.jar">
       <fileset dir="${basedir}/git4idea.mpsbl.stubs/solutions/git4idea.mpsbl.stubs/source_gen">
         <exclude name="**/trace.info" />
       </fileset>
@@ -124,7 +125,6 @@
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/git4idea.mpsbl.stubs-solutions-git4idea.mpsbl.stubs-models" prefix="module/models" />
     </jar>
     <zip destfile="${build.layout}/git4idea.zip">
-      <zipfileset file="${basedir}/git4idea.mpsbl.stubs/solutions/git4idea.mpsbl.stubs/source_gen/git4idea/mpsbl/stubs/plugin.xml" prefix="git4idea.mpsbl.stubs/META-INF" />
       <fileset dir="${build.tmp}/default/git4idea.zip" />
     </zip>
     <echo file="${build.layout}/build.properties">mps.build.number=${mps.build.number}${line.separator}mps.date=${mps.date}${line.separator}mps.build.vcs.number=${mps.build.vcs.number}${line.separator}mps.teamcity.buildConfName=${mps.teamcity.buildConfName}${line.separator}mps.idea.platform.build.number=${mps.idea.platform.build.number}${line.separator}mpsBootstrapCore.version=${mpsBootstrapCore.version}</echo>
@@ -154,6 +154,7 @@
   <target name="generate" depends="declare-mps-tasks, fetchDependencies">
     <echo message="generating" />
     <generate strictMode="true" parallelMode="true" parallelThreads="8" useInplaceTransform="false" hideWarnings="false" fork="true">
+      <plugin path="${artifacts.IDEA_git4idea}/git4idea" />
       <plugin path="${artifacts.mps}/plugins/mps-build" />
       <plugin path="${artifacts.mps}/plugins/mps-core/META-INF/plugin.xml/../.." />
       <plugin path="${artifacts.mps}/plugins/mps-execution-api" />
@@ -215,6 +216,7 @@
         <arg value="-Xmx512m" />
       </jvmargs>
       <macro name="mps_home" path="${mps_home}" />
+      <macro name="plugins_home" path="${plugins_home}" />
       <macro name="git4idea_home" path="${git4idea_home}" />
     </generate>
   </target>
