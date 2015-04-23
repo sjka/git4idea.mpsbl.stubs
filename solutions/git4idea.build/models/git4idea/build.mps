@@ -199,6 +199,9 @@
               </node>
             </node>
           </node>
+          <node role="customLocation" roleId="kdzh.2798275735916344703" type="3ior.BuildSource_JavaExternalJarRef" typeId="3ior.5610619299014309452" id="5082608833903910010" nodeInfo="ng">
+            <link role="jar" roleId="3ior.5610619299014309453" targetNodeId="sixg.886562201811957992" />
+          </node>
         </node>
       </node>
       <node role="dependencies" roleId="kdzh.5253498789149547704" type="kdzh.BuildMps_ExtractedModuleDependency" typeId="kdzh.7259033139236285166" id="916945884190381094" nodeInfo="nn">
@@ -211,6 +214,9 @@
                 <property name="head" nameId="3ior.8618885170173601779" value="git4idea.jar" />
               </node>
             </node>
+          </node>
+          <node role="customLocation" roleId="kdzh.2798275735916344703" type="3ior.BuildSource_JavaExternalJarRef" typeId="3ior.5610619299014309452" id="5082608833903910177" nodeInfo="ng">
+            <link role="jar" roleId="3ior.5610619299014309453" targetNodeId="sixg.886562201811958163" />
           </node>
         </node>
       </node>
@@ -225,6 +231,9 @@
               </node>
             </node>
           </node>
+          <node role="customLocation" roleId="kdzh.2798275735916344703" type="3ior.BuildSource_JavaExternalJarRef" typeId="3ior.5610619299014309452" id="5082608833903910344" nodeInfo="ng">
+            <link role="jar" roleId="3ior.5610619299014309453" targetNodeId="sixg.886562201811958350" />
+          </node>
         </node>
       </node>
       <node role="dependencies" roleId="kdzh.5253498789149547704" type="kdzh.BuildMps_ExtractedModuleDependency" typeId="kdzh.7259033139236285166" id="916945884190381114" nodeInfo="nn">
@@ -237,6 +246,9 @@
                 <property name="head" nameId="3ior.8618885170173601779" value="org.eclipse.jgit-2.1.0.201209190230-r.jar" />
               </node>
             </node>
+          </node>
+          <node role="customLocation" roleId="kdzh.2798275735916344703" type="3ior.BuildSource_JavaExternalJarRef" typeId="3ior.5610619299014309452" id="5082608833903910511" nodeInfo="ng">
+            <link role="jar" roleId="3ior.5610619299014309453" targetNodeId="sixg.886562201811958626" />
           </node>
         </node>
       </node>
@@ -251,6 +263,9 @@
               </node>
             </node>
           </node>
+          <node role="customLocation" roleId="kdzh.2798275735916344703" type="3ior.BuildSource_JavaExternalJarRef" typeId="3ior.5610619299014309452" id="5082608833903910678" nodeInfo="ng">
+            <link role="jar" roleId="3ior.5610619299014309453" targetNodeId="sixg.886562201811958904" />
+          </node>
         </node>
       </node>
       <node role="dependencies" roleId="kdzh.5253498789149547704" type="kdzh.BuildMps_ExtractedModuleDependency" typeId="kdzh.7259033139236285166" id="916945884190381134" nodeInfo="nn">
@@ -263,6 +278,9 @@
                 <property name="head" nameId="3ior.8618885170173601779" value="trilead-ssh2.jar" />
               </node>
             </node>
+          </node>
+          <node role="customLocation" roleId="kdzh.2798275735916344703" type="3ior.BuildSource_JavaExternalJarRef" typeId="3ior.5610619299014309452" id="5082608833903910845" nodeInfo="ng">
+            <link role="jar" roleId="3ior.5610619299014309453" targetNodeId="sixg.886562201811958964" />
           </node>
         </node>
       </node>
