@@ -3,11 +3,12 @@
   <property name="build.dir" location="build" />
   <property name="build.tmp" location="${build.dir}/tmp/git4ideaTests" />
   <property name="build.layout" location="${build.dir}/artifacts/git4ideaTests" />
-  <property name="mps_home" location="${basedir}/../../../MPS_executables/3.1.5/MPS 3.1.app/Contents" />
+  <property name="mps_home" location="${basedir}/../../../../../../Applications/MPS 3.1.app/Contents" />
   <property name="plugins_home" location="${mps_home}/plugins" />
   <property name="artifacts.mps" location="${mps_home}" />
   <property name="artifacts.git4idea" location="${build.dir}/artifacts/git4idea" />
   <property name="artifacts.IDEA_git4idea" location="${plugins_home}" />
+  <property name="artifacts.IDEA_modelchecker" location="${plugins_home}" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property name="mps.build.number" value="${import.mps.mps.build.number}" />
   <property name="mps.date" value="${import.mps.mps.date}" />
@@ -67,6 +68,8 @@
   <target name="fetchDependencies">
     <mkdir dir="${build.tmp}/deps/git4idea/git4idea.zip" />
     <unzip src="${artifacts.git4idea}/git4idea.zip" dest="${build.tmp}/deps/git4idea/git4idea.zip" />
+    <mkdir dir="${build.tmp}/deps/IDEA_modelchecker/modelchecker.jar" />
+    <unzip src="${artifacts.IDEA_modelchecker}/modelchecker.jar" dest="${build.tmp}/deps/IDEA_modelchecker/modelchecker.jar" />
   </target>
   
   <target name="build" depends="assemble" />
@@ -146,6 +149,7 @@
       <library file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.runtime.jar" />
       <library file="${build.tmp}/deps/git4idea/git4idea.zip/git4ide.mps.actions/languages/git4idea.mpsbl.stubs.usage.actions.jar" />
       <library file="${build.tmp}/deps/git4idea/git4idea.zip/git4idea.mpsbl.stubs/languages/git4idea.mpsbl.stubs.jar" />
+      <library file="${build.tmp}/deps/git4idea/git4idea.zip/modelchecker.stubs/languages/modelchecker.stubs.jar" />
       <chunk>
         <module file="${basedir}/solutions/git4idea.tests/git4idea.tests.msd" />
       </chunk>
@@ -200,6 +204,7 @@
         <fileset file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.unitTest.libs/objenesis-1.0.jar" />
         <fileset file="${artifacts.mps}/lib/ant/lib/ant.jar" />
         <fileset file="${artifacts.mps}/lib/junit-4.11.jar" />
+        <fileset file="${artifacts.IDEA_modelchecker}/modelchecker.jar" />
         <fileset file="${artifacts.mps}/lib/annotations.jar" />
         <fileset file="${artifacts.mps}/lib/jdom.jar" />
         <fileset file="${artifacts.mps}/lib/log4j.jar" />
@@ -221,6 +226,7 @@
         <fileset file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.structure.jar" />
         <fileset file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.runtime.jar" />
         <fileset file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.traceable.jar" />
+        <fileset file="${build.tmp}/deps/git4idea/git4idea.zip/modelchecker.stubs/languages/modelchecker.stubs.jar" />
       </classpath>
     </javac>
   </target>
@@ -284,6 +290,7 @@
       <pathelement location="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.runtime.jar" />
       <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/git4ide.mps.actions/languages/git4idea.mpsbl.stubs.usage.actions.jar" />
       <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/git4idea.mpsbl.stubs/languages/git4idea.mpsbl.stubs.jar" />
+      <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/modelchecker.stubs/languages/modelchecker.stubs.jar" />
     </path>
     <pathconvert pathsep="${path.separator}" property="mps.libraries.path.string" refid="mps.libraries.path" />
     <path id="mps.plugins.path">
@@ -292,8 +299,10 @@
       <pathelement location="${artifacts.mps}/plugins/mps-core/META-INF/plugin.xml/../.." />
       <pathelement location="${artifacts.mps}/plugins/mps-execution-api" />
       <pathelement location="${artifacts.mps}/plugins/mps-testing" />
+      <pathelement location="${build.tmp}/deps/IDEA_modelchecker/modelchecker.jar/." />
       <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/git4ide.mps.actions" />
       <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/git4idea.mpsbl.stubs" />
+      <pathelement location="${build.tmp}/deps/git4idea/git4idea.zip/modelchecker.stubs" />
     </path>
     <pathconvert pathsep="${path.separator}" property="mps.plugins.path.string" refid="mps.plugins.path" />
     <path location="${build.layout}/tests/git4idea.tests.jar" id="mps.tests.path" />
@@ -324,10 +333,16 @@
         <fileset dir="${artifacts.mps}/plugins/mps-testing">
           <include name="**/lib/*.jar" />
         </fileset>
+        <fileset dir="${build.tmp}/deps/IDEA_modelchecker/modelchecker.jar/.">
+          <include name="**/lib/*.jar" />
+        </fileset>
         <fileset dir="${build.tmp}/deps/git4idea/git4idea.zip/git4ide.mps.actions">
           <include name="**/lib/*.jar" />
         </fileset>
         <fileset dir="${build.tmp}/deps/git4idea/git4idea.zip/git4idea.mpsbl.stubs">
+          <include name="**/lib/*.jar" />
+        </fileset>
+        <fileset dir="${build.tmp}/deps/git4idea/git4idea.zip/modelchecker.stubs">
           <include name="**/lib/*.jar" />
         </fileset>
       </classpath>

@@ -3,11 +3,12 @@
   <property name="build.dir" location="build" />
   <property name="build.tmp" location="${build.dir}/tmp/git4idea" />
   <property name="build.layout" location="${build.dir}/artifacts/git4idea" />
-  <property name="mps_home" location="${basedir}/../../../MPS_executables/3.1.5/MPS 3.1.app/Contents" />
+  <property name="mps_home" location="${basedir}/../../../../../../Applications/MPS 3.1.app/Contents" />
   <property name="plugins_home" location="${mps_home}/plugins" />
   <property name="git4idea_home" location="${plugins_home}/git4idea" />
   <property name="artifacts.mps" location="${mps_home}" />
   <property name="artifacts.IDEA_git4idea" location="${plugins_home}" />
+  <property name="artifacts.IDEA_modelchecker" location="${plugins_home}" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property name="mps.build.number" value="${import.mps.mps.build.number}" />
   <property name="mps.date" value="${import.mps.mps.date}" />
@@ -36,6 +37,7 @@
         <depends>jetbrains.mps.build</depends>
         <depends>jetbrains.mps.execution.api</depends>
         <depends>git4idea.mpsbl.stubs</depends>
+        <depends>modelchecker.stubs</depends>
         
         <extensions defaultExtensionNs="com.intellij">
           <mps.LanguageLibrary dir="/languages" />
@@ -124,6 +126,45 @@
       <zipfileset file="${basedir}/git4idea.mpsbl.stubs/solutions/git4idea.mpsbl.stubs/git4idea.mpsbl.stubs.msd" prefix="module" />
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/git4idea.mpsbl.stubs-solutions-git4idea.mpsbl.stubs-models" prefix="module/models" />
     </jar>
+    <mkdir dir="${build.tmp}/default/git4idea.zip/modelchecker.stubs" />
+    <mkdir dir="${build.tmp}/default/git4idea.zip/modelchecker.stubs/META-INF" />
+    <echoxml file="${build.tmp}/default/git4idea.zip/modelchecker.stubs/META-INF/plugin.xml">
+      <idea-plugin version="2" xmlns:xi="http://www.w3.org/2001/XInclude">
+        <id>modelchecker.stubs</id>
+        <name>modelchecker.stubs</name>
+        <version>1.0</version>
+        <depends>jetbrains.mps.ide.modelchecker</depends>
+        
+        <extensions defaultExtensionNs="com.intellij">
+          <mps.LanguageLibrary dir="/languages" />
+        </extensions>
+      </idea-plugin>
+    </echoxml>
+    <mkdir dir="${build.tmp}/default/git4idea.zip/modelchecker.stubs/languages" />
+    <mkdir dir="${build.tmp}/default/modelchecker.stubs.jar" />
+    <mkdir dir="${build.tmp}/default/modelchecker.stubs.jar/META-INF" />
+    <echoxml file="${build.tmp}/default/modelchecker.stubs.jar/META-INF/module.xml">
+      <module namespace="modelchecker.stubs" type="solution" uuid="da8f3071-ea31-4811-86b7-02039bb38bac">
+        <dependencies />
+        <library jar="/plugins/modelchecker.jar" />
+        <sources jar="modelchecker.stubs-src.jar" descriptor="modelchecker.stubs.msd" />
+      </module>
+    </echoxml>
+    <jar destfile="${build.tmp}/default/git4idea.zip/modelchecker.stubs/languages/modelchecker.stubs.jar">
+      <fileset dir="${build.tmp}/java/out/modelchecker.stubs" />
+      <fileset dir="${basedir}/solutions/modelchecker.stubs" includes="icons/**, resources/**" />
+      <fileset dir="${build.tmp}/default/modelchecker.stubs.jar" />
+    </jar>
+    <copyModels todir="${build.tmp}/customProcessors/copyModels/solutions-modelchecker.stubs-models">
+      <fileset dir="${basedir}/solutions/modelchecker.stubs/models" includes="**/*.mps, **/*.metadata, **/*.history, **/*.mpsr, **/.model" />
+    </copyModels>
+    <jar destfile="${build.tmp}/default/git4idea.zip/modelchecker.stubs/languages/modelchecker.stubs-src.jar">
+      <fileset dir="${basedir}/solutions/modelchecker.stubs/source_gen">
+        <exclude name="**/trace.info" />
+      </fileset>
+      <zipfileset file="${basedir}/solutions/modelchecker.stubs/modelchecker.stubs.msd" prefix="module" />
+      <zipfileset dir="${build.tmp}/customProcessors/copyModels/solutions-modelchecker.stubs-models" prefix="module/models" />
+    </jar>
     <zip destfile="${build.layout}/git4idea.zip">
       <fileset dir="${build.tmp}/default/git4idea.zip" />
     </zip>
@@ -132,7 +173,10 @@
   
   <target name="buildDependents" />
   
-  <target name="fetchDependencies" />
+  <target name="fetchDependencies">
+    <mkdir dir="${build.tmp}/deps/IDEA_modelchecker/modelchecker.jar" />
+    <unzip src="${artifacts.IDEA_modelchecker}/modelchecker.jar" dest="${build.tmp}/deps/IDEA_modelchecker/modelchecker.jar" />
+  </target>
   
   <target name="build" depends="assemble" />
   
@@ -141,7 +185,7 @@
     <delete dir="${build.layout}" />
   </target>
   
-  <target name="compileJava" depends="java.compile.git4idea.mpsbl.stubs, java.compile.git4idea.mpsbl.stubs.usage.actions" />
+  <target name="compileJava" depends="java.compile.git4idea.mpsbl.stubs, java.compile.modelchecker.stubs, java.compile.git4idea.mpsbl.stubs.usage.actions" />
   
   <target name="processResources" />
   
@@ -159,6 +203,7 @@
       <plugin path="${artifacts.mps}/plugins/mps-core/META-INF/plugin.xml/../.." />
       <plugin path="${artifacts.mps}/plugins/mps-execution-api" />
       <plugin path="${artifacts.mps}/plugins/mps-testing" />
+      <plugin path="${build.tmp}/deps/IDEA_modelchecker/modelchecker.jar/." />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.blTypes.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.classifiers.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.closures.jar" />
@@ -211,6 +256,7 @@
       <chunk>
         <module file="${basedir}/git4idea.mpsbl.stubs/solutions/git4idea.mpsbl.stubs/git4idea.mpsbl.stubs.msd" />
         <module file="${basedir}/git4idea.mpsbl.stubs.usage/solutions/git4idea.mpsbl.stubs.usage.actions/git4idea.mpsbl.stubs.usage.actions.msd" />
+        <module file="${basedir}/solutions/modelchecker.stubs/modelchecker.stubs.msd" />
       </chunk>
       <jvmargs>
         <arg value="-Xmx512m" />
@@ -234,6 +280,18 @@
       <compilerarg value="-Xlint:none" />
       <src>
         <path location="${basedir}/git4idea.mpsbl.stubs/solutions/git4idea.mpsbl.stubs/source_gen" />
+      </src>
+      <classpath />
+    </javac>
+  </target>
+  
+  <target name="java.compile.modelchecker.stubs">
+    <mkdir dir="${basedir}/solutions/modelchecker.stubs/source_gen" />
+    <mkdir dir="${build.tmp}/java/out/modelchecker.stubs" />
+    <javac destdir="${build.tmp}/java/out/modelchecker.stubs" fork="true" includeantruntime="false">
+      <compilerarg value="-Xlint:none" />
+      <src>
+        <path location="${basedir}/solutions/modelchecker.stubs/source_gen" />
       </src>
       <classpath />
     </javac>
@@ -296,5 +354,6 @@
   <target name="cleanSources">
     <delete dir="${basedir}/git4idea.mpsbl.stubs/solutions/git4idea.mpsbl.stubs/source_gen" />
     <delete dir="${basedir}/git4idea.mpsbl.stubs.usage/solutions/git4idea.mpsbl.stubs.usage.actions/source_gen" />
+    <delete dir="${basedir}/solutions/modelchecker.stubs/source_gen" />
   </target>
 </project>
