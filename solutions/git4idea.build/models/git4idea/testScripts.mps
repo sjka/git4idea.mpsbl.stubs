@@ -46,19 +46,13 @@
             <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="8423267744228772399" nodeInfo="nn">
               <property name="head" nameId="3ior.8618885170173601779" value=".." />
               <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="8013163708864881053" nodeInfo="nn">
-                <property name="head" nameId="3ior.8618885170173601779" value=".." />
-                <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="8013163708864881055" nodeInfo="nn">
-                  <property name="head" nameId="3ior.8618885170173601779" value=".." />
-                  <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="8013163708864881057" nodeInfo="nn">
-                    <property name="head" nameId="3ior.8618885170173601779" value=".." />
-                    <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="8013163708864881061" nodeInfo="nn">
-                      <property name="head" nameId="3ior.8618885170173601779" value="Applications" />
-                      <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="8013163708864881065" nodeInfo="nn">
-                        <property name="head" nameId="3ior.8618885170173601779" value="MPS 3.1.app" />
-                        <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="8013163708864881069" nodeInfo="nn">
-                          <property name="head" nameId="3ior.8618885170173601779" value="Contents" />
-                        </node>
-                      </node>
+                <property name="head" nameId="3ior.8618885170173601779" value="MPS_executables" />
+                <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="4376444623390583119" nodeInfo="nn">
+                  <property name="head" nameId="3ior.8618885170173601779" value="3.1.5" />
+                  <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="4376444623390583147" nodeInfo="nn">
+                    <property name="head" nameId="3ior.8618885170173601779" value="MPS 3.1.app" />
+                    <node role="tail" roleId="3ior.8618885170173601778" type="3ior.BuildCompositePath" typeId="3ior.8618885170173601777" id="4376444623390583167" nodeInfo="nn">
+                      <property name="head" nameId="3ior.8618885170173601779" value="Contents" />
                     </node>
                   </node>
                 </node>
